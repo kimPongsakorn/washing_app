@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:washing_app/src/utils/constant.dart';
+import 'package:washing_app/src/constants/constant.dart';
 
 class TitleCustom extends StatelessWidget {
   final String? title;

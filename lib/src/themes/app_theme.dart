@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:washing_app/src/utils/constant.dart';
+import 'package:washing_app/src/constants/constant.dart';
 
 ThemeData appTheme() {
   return ThemeData(
@@ -26,7 +26,7 @@ ThemeData appTheme() {
       ),
       headline6: TextStyle(
         fontSize: 32.0,
-        color: Constant.BG_WHITE_COLOR.withOpacity(0.5),
+        color: Constant.BG_WHITE_COLOR.withOpacity(0.8),
       ),
       bodyText2: const TextStyle(fontSize: 14.0, fontFamily: 'Prompt'),
     ),

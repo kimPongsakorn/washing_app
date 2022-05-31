@@ -1,6 +1,6 @@
 import 'package:badges/badges.dart';
 import 'package:flutter/material.dart';
-import 'package:washing_app/src/utils/constant.dart';
+import 'package:washing_app/src/constants/constant.dart';
 
 class WashingListItem extends StatelessWidget {
   final _model;
@@ -28,20 +28,7 @@ class WashingListItem extends StatelessWidget {
                 height: 60,
               ),
               const SizedBox(width: 5),
-              Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  Text(
-                    _model.title,
-                    style: const TextStyle(
-                      fontWeight: FontWeight.bold,
-                      color: Constant.BLACK_COLOR,
-                      fontSize: 16,
-                    ),
-                  ),
-                  _buildBadge(_model.workingHours),
-                ],
-              ),
+              _buildTitleAndStatus(),
               const SizedBox(
                 width: 5,
               ),
@@ -58,6 +45,21 @@ class WashingListItem extends StatelessWidget {
       ),
     );
   }
+
+  _buildTitleAndStatus() => Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          Text(
+            _model.title,
+            style: const TextStyle(
+              fontWeight: FontWeight.bold,
+              color: Constant.BLACK_COLOR,
+              fontSize: 16,
+            ),
+          ),
+          _buildBadge(_model.workingHours),
+        ],
+      );
 
   _buildBadge(String? notification) {
     return Badge(
