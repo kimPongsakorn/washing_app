@@ -1,7 +1,10 @@
+import 'dart:convert';
+
 import 'package:dio/dio.dart';
 import 'package:flutter/foundation.dart';
 import 'package:washing_app/src/constants/network_api.dart';
 import 'package:washing_app/src/models/register_model.dart';
+import 'package:washing_app/src/utils/services/login_response.dart';
 
 class NetworkService {
   NetworkService._internal();
@@ -51,5 +54,29 @@ class NetworkService {
       return response.statusCode.toString();
     }
     throw Exception();
+  }
+
+  Future<LoginResponse> login(
+    final String username,
+    final String password,
+  ) async {
+    FormData data = FormData.fromMap({
+      'username': username,
+      'password': password,
+    });
+    final response = await _dio.post(
+      NetworkAPI.login,
+      data: data,
+    );
+    if (kDebugMode) {
+      print(response.statusCode);
+      print(response.data);
+      print(response.data['token']);
+    }
+    LoginResponse login = loginResponseFromJson(jsonEncode(response.data));
+    if (kDebugMode) {
+      print(login.token);
+    }
+    return loginResponseFromJson(jsonEncode(response.data));
   }
 }

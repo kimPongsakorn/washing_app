@@ -3,7 +3,7 @@ import 'dart:async';
 import 'package:flutter/material.dart';
 import 'package:washing_app/src/constants/constant.dart';
 import 'package:washing_app/src/models/register_model.dart';
-import 'package:washing_app/src/pages/register/register_form_input.dart';
+import 'package:washing_app/src/pages/register/widgets/register_form_input.dart';
 import 'package:washing_app/src/utils/services/network_service.dart';
 import 'package:washing_app/src/widgets/background_theme.dart';
 import 'package:washing_app/src/widgets/custom_flushbar.dart';

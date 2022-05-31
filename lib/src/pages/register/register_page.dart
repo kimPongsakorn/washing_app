@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:washing_app/src/pages/register/form.dart' as register;
+import 'package:washing_app/src/pages/register/view/form.dart' as register;
 import 'package:washing_app/src/widgets/background_theme.dart';
 
 class RegisterPage extends StatelessWidget {

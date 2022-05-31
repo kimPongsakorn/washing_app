@@ -3,4 +3,5 @@ class NetworkAPI {
       'http://student.crru.ac.th/601463027/blackend_washing';
 
   static const String register = '/user/post.php';
+  static const String login = '/user/login.php';
 }

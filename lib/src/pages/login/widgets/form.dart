@@ -1,5 +1,9 @@
 import 'package:flutter/material.dart';
+import 'package:washing_app/src/configs/routes/app_route.dart';
+import 'package:washing_app/src/utils/services/local_storage_service.dart';
+import 'package:washing_app/src/utils/services/network_service.dart';
 import 'package:washing_app/src/widgets/background_theme.dart';
+import 'package:washing_app/src/widgets/custom_flushbar.dart';
 
 class Form extends StatefulWidget {
   const Form({Key? key}) : super(key: key);
@@ -78,15 +82,51 @@ class _FormState extends State<Form> {
     );
   }
 
-  void _login() async {}
+  void _login() async {
+    String username = _usernameController.text;
+    String password = _passwordController.text;
+    NetworkService().login(username, password).then((data) async {
+      await Future.delayed(const Duration(seconds: 1));
+      if (data.status == 'Notuser') {
+        if (!mounted) return;
+        CustomFlushbar.showError(context, message: 'โปรดตรวจสอบชื่อผู้ใช้');
+        return;
+      } else if (data.status == 'Mismatch') {
+        if (!mounted) return;
+        CustomFlushbar.showError(context, message: 'รหัสผ่านไม่ถูกต้อง');
+        return;
+      }
+
+      String token = data.token ?? '';
+
+      if (token.isEmpty) {
+        if (!mounted) return;
+        CustomFlushbar.showError(context,
+            message: 'ชื่อผู้ใช้หรือรหัสผ่านไม่ถูกต้อง');
+        return;
+      }
+
+      await LocalStorageService()
+          .setUserInfo(username, data.token, data.name.toString());
+      if (!mounted) return;
+      Navigator.pushReplacementNamed(
+        context,
+        AppRoute.home,
+      );
+    }).catchError((onError) async {
+      await Future.delayed(const Duration(seconds: 1));
+      if (!mounted) return;
+      CustomFlushbar.showError(context, message: 'error');
+    });
+  }
 
   BoxDecoration _boxDecoration() {
     const gradientStart = BackgroundTheme.gradientStart;
     const gradientEnd = BackgroundTheme.gradientEnd;
 
-    final boxShadowItem = (Color color) => BoxShadow(
+    boxShadowItem(Color color) => BoxShadow(
           color: color,
-          offset: Offset(1.0, 6.0),
+          offset: const Offset(1.0, 6.0),
           blurRadius: 20.0,
         );
 
