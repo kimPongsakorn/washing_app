@@ -11,14 +11,13 @@ class WashingListItem extends StatelessWidget {
   Widget build(BuildContext context) {
     return Container(
       padding: const EdgeInsets.symmetric(horizontal: 10.0, vertical: 2.0),
-      height: MediaQuery.of(context).size.height * 0.13,
       child: Card(
         shape: RoundedRectangleBorder(
           borderRadius: BorderRadius.circular(12.0),
         ),
         elevation: 8,
         child: Padding(
-          padding: const EdgeInsets.symmetric(horizontal: 5.0, vertical: 10.0),
+          padding: const EdgeInsets.symmetric(horizontal: 5.0, vertical: 15.0),
           child: Row(
             crossAxisAlignment: CrossAxisAlignment.start,
             mainAxisAlignment: MainAxisAlignment.spaceEvenly,
@@ -57,6 +56,9 @@ class WashingListItem extends StatelessWidget {
               fontSize: 16,
             ),
           ),
+          const SizedBox(
+            height: 2,
+          ),
           _buildBadge(_model.workingHours),
         ],
       );
@@ -70,7 +72,7 @@ class WashingListItem extends StatelessWidget {
         notification == null ? 'ว่าง' : 'เหลือเวลา $notification นาที',
         style: const TextStyle(
           color: Constant.BG_WHITE_COLOR,
-          fontSize: 15,
+          fontSize: 14,
         ),
       ),
       badgeColor: notification != null ? Colors.amber : Colors.green,
