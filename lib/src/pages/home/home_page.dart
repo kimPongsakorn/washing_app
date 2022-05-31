@@ -1,5 +1,8 @@
 import 'package:flutter/material.dart';
+import 'package:washing_app/src/pages/home/view/washing_list.dart';
 import 'package:washing_app/src/pages/home/widgets/appbar_custom.dart';
+import 'package:washing_app/src/utils/constant.dart';
+import 'package:washing_app/src/widgets/title_custom.dart';
 
 class HomePage extends StatelessWidget {
   const HomePage({Key? key}) : super(key: key);
@@ -9,11 +12,37 @@ class HomePage extends StatelessWidget {
     return Scaffold(
       body: SafeArea(
         child: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
           children: const [
             AppBarCustom(),
+            SizedBox(height: 10),
+            TitleCustom('เครื่องว่าง'),
+            Expanded(child: WashingList()),
           ],
         ),
       ),
+      floatingActionButtonLocation: FloatingActionButtonLocation.centerFloat,
+      floatingActionButton: _buildFloatingActionButton(
+        'คิวอาร์โค้ดไลน์กลุ่ม',
+        iconData: Icons.qr_code,
+      ),
     );
   }
+
+  FloatingActionButton _buildFloatingActionButton(String title,
+          {required IconData? iconData}) =>
+      FloatingActionButton.extended(
+        onPressed: () {
+          // Add your onPressed code here!
+        },
+        label: Text(
+          title,
+          style: const TextStyle(
+            color: Constant.BG_WHITE_COLOR,
+            fontSize: 15,
+          ),
+        ),
+        icon: Icon(iconData, color: Constant.BG_WHITE_COLOR),
+        // backgroundColor: Colors.pink,
+      );
 }

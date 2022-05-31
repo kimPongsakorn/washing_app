@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:washing_app/src/constants/asset.dart';
-import 'package:washing_app/src/utils/constant.dart';
+import 'package:washing_app/src/widgets/title_custom.dart';
 
 class AppBarCustom extends StatelessWidget {
   const AppBarCustom({Key? key}) : super(key: key);
@@ -15,22 +15,15 @@ class AppBarCustom extends StatelessWidget {
           borderRadius: const BorderRadius.only(
               bottomLeft: Radius.circular(40.0),
               bottomRight: Radius.circular(40.0))),
-      child: Padding(
-        padding: const EdgeInsets.all(8.0),
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.start,
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            SizedBox(
-              height: MediaQuery.of(context).size.height * 0.02,
-            ),
-            _buildTitle('เครื่องซักผ้า'),
-            SizedBox(
-              height: MediaQuery.of(context).size.height * 0.05,
-            ),
-            _buildStatus(context, free: '2', amount: '5'),
-          ],
-        ),
+      child: Column(
+        mainAxisAlignment: MainAxisAlignment.start,
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          SizedBox(height: MediaQuery.of(context).size.height * 0.02),
+          const TitleCustom('เครื่องซักผ้า'),
+          SizedBox(height: MediaQuery.of(context).size.height * 0.05),
+          _buildStatus(context, free: '2', amount: '5'),
+        ],
       ),
     );
   }
@@ -45,9 +38,7 @@ class AppBarCustom extends StatelessWidget {
               Asset.logoImage,
               height: 100,
             ),
-            const SizedBox(
-              width: 20,
-            ),
+            const SizedBox(width: 20),
             Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
@@ -72,15 +63,6 @@ class AppBarCustom extends StatelessWidget {
               ],
             ),
           ],
-        ),
-      );
-
-  Text _buildTitle(String? title) => Text(
-        title ?? '',
-        style: const TextStyle(
-          fontWeight: FontWeight.bold,
-          color: Constant.BLACK_COLOR,
-          fontSize: 20,
         ),
       );
 }
