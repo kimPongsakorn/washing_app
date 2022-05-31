@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:modal_bottom_sheet/modal_bottom_sheet.dart';
+import 'package:washing_app/src/constants/asset.dart';
 import 'package:washing_app/src/constants/constant.dart';
 import 'package:washing_app/src/pages/home/view/washing_list.dart';
 import 'package:washing_app/src/pages/home/widgets/appbar_custom.dart';
@@ -41,15 +42,24 @@ class HomePage extends StatelessWidget {
     );
   }
 
-  TextButton _buildCoin() => TextButton(
-        onPressed: () {},
-        child: const Text(
-          '12.36',
-          style: TextStyle(
-            color: Constant.BG_WHITE_COLOR,
-            fontSize: 15,
+  Row _buildCoin() => Row(
+        mainAxisSize: MainAxisSize.min,
+        children: [
+          Image.asset(
+            Asset.iconCoin,
+            height: 20,
           ),
-        ),
+          TextButton(
+            onPressed: () {},
+            child: const Text(
+              '12.36',
+              style: TextStyle(
+                color: Constant.BG_WHITE_COLOR,
+                fontSize: 15,
+              ),
+            ),
+          ),
+        ],
       );
 
   FloatingActionButton _buildFloatingActionButton(BuildContext context,

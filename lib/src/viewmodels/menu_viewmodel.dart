@@ -25,6 +25,17 @@ class MenuViewModel {
   MenuViewModel({this.menuItems});
   List<Menu> getMenuItems(BuildContext context) => menuItems = <Menu>[
         Menu(
+          Constant.MENU_HOME,
+          iconColor: const Color(0xff12606A),
+          navigator: () {
+            Navigator.pushNamed(
+              context,
+              AppRoute.home,
+            );
+          },
+          icon: FontAwesomeIcons.house,
+        ),
+        Menu(
           Constant.MENU_WALLET,
           iconColor: const Color(0xff12606A),
           navigator: () {

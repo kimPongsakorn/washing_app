@@ -11,4 +11,5 @@ class Constant {
   // menu
   static const String MENU_REGISTER = 'สมัครสมาชิก';
   static const String MENU_WALLET = 'กระเป๋าเงิน';
+  static const String MENU_HOME = 'หน้าแรก';
 }
