@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:washing_app/src/configs/routes/app_route.dart';
-import 'package:washing_app/src/pages/home/home_page.dart';
+import 'package:washing_app/src/pages/login/login_page.dart';
 import 'package:washing_app/src/themes/app_theme.dart';
 
 class App extends StatelessWidget {
@@ -12,7 +12,7 @@ class App extends StatelessWidget {
       debugShowCheckedModeBanner: false,
       routes: AppRoute().getAll,
       theme: appTheme(),
-      home: const HomePage(),
+      home: const LoginPage(),
     );
   }
 }
