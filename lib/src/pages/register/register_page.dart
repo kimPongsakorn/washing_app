@@ -8,27 +8,42 @@ class RegisterPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: Stack(
-        children: [
-          Container(
-            decoration: const BoxDecoration(
-              gradient: BackgroundTheme.gradient,
+      body: SafeArea(
+        child: Stack(
+          children: [
+            Container(
+              decoration: const BoxDecoration(
+                gradient: BackgroundTheme.gradient,
+              ),
             ),
-          ),
-          SingleChildScrollView(
-            child: Column(
-              children: [
-                SizedBox(
-                  height: MediaQuery.of(context).size.height * 0.20,
-                ),
-                const register.Form(),
-                const SizedBox(height: 32),
-                const SizedBox(height: 32),
-              ],
+            _buildBtnColse(context),
+            SingleChildScrollView(
+              child: Column(
+                children: [
+                  SizedBox(
+                    height: MediaQuery.of(context).size.height * 0.20,
+                  ),
+                  const register.Form(),
+                  const SizedBox(height: 32),
+                  const SizedBox(height: 32),
+                ],
+              ),
             ),
-          ),
-        ],
+            _buildBtnColse(context),
+          ],
+        ),
       ),
     );
   }
+
+  Align _buildBtnColse(BuildContext context) => Align(
+        alignment: Alignment.topRight,
+        child: IconButton(
+          onPressed: () {
+            Navigator.pop(context);
+          },
+          iconSize: 35,
+          icon: const Icon(Icons.close_rounded),
+        ),
+      );
 }

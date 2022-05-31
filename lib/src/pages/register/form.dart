@@ -4,7 +4,9 @@ import 'package:flutter/material.dart';
 import 'package:washing_app/src/constants/constant.dart';
 import 'package:washing_app/src/models/register_model.dart';
 import 'package:washing_app/src/pages/register/register_form_input.dart';
+import 'package:washing_app/src/utils/services/network_service.dart';
 import 'package:washing_app/src/widgets/background_theme.dart';
+import 'package:washing_app/src/widgets/custom_flushbar.dart';
 
 class Form extends StatefulWidget {
   const Form({Key? key}) : super(key: key);
@@ -16,7 +18,7 @@ class Form extends StatefulWidget {
 class _FormState extends State<Form> {
   final _form = GlobalKey<FormState>();
 
-  var _register = Register();
+  final _register = Register();
 
   final StreamController<bool> _loadingController = StreamController();
 
@@ -55,6 +57,7 @@ class _FormState extends State<Form> {
                 RegisterFormInput(
                   _register,
                   formKey: _form,
+                  voidSubmit: (data) => _submitForm(data),
                 ),
               ],
             ),
@@ -82,23 +85,26 @@ class _FormState extends State<Form> {
     if (!(_form.currentState?.validate() ?? true)) {
       return;
     }
-    _loadingController.add(true);
+
     try {
       CustomFlushbar.showLoading(context);
       String? result;
       result = await NetworkService().register(register);
 
+      if (!mounted) return;
       CustomFlushbar.close(context);
 
       if (result == '201') {
-        Navigator.pushReplacementNamed(
-          context,
-          Constant.LOGIN_ROUTE,
-        );
+        // Navigator.pushReplacementNamed(
+        //   context,
+        //   Constant.LOGIN_ROUTE,
+        // );
+        if (!mounted) return;
         CustomFlushbar.showSuccess(context, message: 'สมัครสมาชิกสำเร็จ');
         return;
       }
       if (result == '200') {
+        if (!mounted) return;
         CustomFlushbar.showError(context,
             message: 'username นี้มีการใช้งานแล้ว');
         return;
@@ -112,12 +118,12 @@ class _FormState extends State<Form> {
         initialData: false,
         stream: _loadingController.stream,
         builder: (context, snapshot) => !snapshot.data!
-            ? SizedBox()
+            ? const SizedBox()
             : Positioned(
                 top: 0,
-                child: Container(
+                child: SizedBox(
                   width: MediaQuery.of(context).size.width - 60,
-                  child: ClipRRect(
+                  child: const ClipRRect(
                     borderRadius: BorderRadius.only(
                       topLeft: Radius.circular(15),
                       topRight: Radius.circular(15),

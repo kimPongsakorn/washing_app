@@ -16,7 +16,7 @@ class ModalFit extends StatelessWidget {
           const SizedBox(height: 50),
           _buildQRGroup(context),
           const SizedBox(height: 10),
-          const Text('ใช้คิวอาร์โค้ดเข้ากลุ่ม/nเพื่อรับการแจ้งเตือน'),
+          const Text('ใช้คิวอาร์โค้ดเข้ากลุ่ม\nเพื่อรับการแจ้งเตือน'),
           const SizedBox(height: 50)
         ],
       ),

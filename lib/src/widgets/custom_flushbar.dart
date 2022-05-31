@@ -3,20 +3,20 @@ import 'package:flutter/material.dart';
 
 class CustomFlushbar {
   static void showError(
-    context, {
+    BuildContext context, {
     String? title,
     required String message,
   }) =>
       Flushbar(
         title: title,
         message: message,
-        icon: Icon(
+        icon: const Icon(
           Icons.error,
           size: 28.0,
           color: Colors.red,
         ),
-        duration: Duration(seconds: 3),
-        margin: EdgeInsets.all(8),
+        duration: const Duration(seconds: 3),
+        margin: const EdgeInsets.all(8),
         borderRadius: BorderRadius.circular(8),
       )..show(context);
 
@@ -28,13 +28,13 @@ class CustomFlushbar {
       Flushbar(
         title: title,
         message: message,
-        icon: Icon(
+        icon: const Icon(
           Icons.check_circle,
           size: 28.0,
           color: Colors.green,
         ),
-        duration: Duration(seconds: 3),
-        margin: EdgeInsets.all(8),
+        duration: const Duration(seconds: 3),
+        margin: const EdgeInsets.all(8),
         borderRadius: BorderRadius.circular(8),
       )..show(context);
 

@@ -5,11 +5,13 @@ import 'package:washing_app/src/models/register_model.dart';
 class RegisterFormInput extends StatefulWidget {
   final GlobalKey<FormState> formKey;
   final Register register;
+  final Function(Register)? voidSubmit;
 
   const RegisterFormInput(
     this.register, {
     Key? key,
     required this.formKey,
+    required this.voidSubmit,
   }) : super(key: key);
 
   @override
@@ -120,7 +122,7 @@ class _RegisterFormInputState extends State<RegisterFormInput> {
             onSaved: (String? value) {
               widget.register.lastName = value;
             },
-            onEditingComplete: () {},
+            onEditingComplete: () => widget.voidSubmit!(widget.register),
             validator: (String? value) {
               if (value == null || value.trim().isEmpty) {
                 return 'กรุณากรอกนามสกุล';
