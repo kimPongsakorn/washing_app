@@ -10,6 +10,7 @@ class WashingList extends StatelessWidget {
   Widget build(BuildContext context) {
     final List<MashingModel> list = StatusWashingViewModel().getWashingItems;
     return ListView.builder(
+      padding: const EdgeInsets.only(bottom: 100),
       itemBuilder: (context, index) {
         final model = list[index];
         return WashingListItem(model);

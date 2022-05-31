@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:washing_app/src/constants/asset.dart';
-import 'package:washing_app/src/widgets/title_custom.dart';
 
 class AppBarCustom extends StatelessWidget {
   const AppBarCustom({Key? key}) : super(key: key);
@@ -20,7 +19,6 @@ class AppBarCustom extends StatelessWidget {
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           SizedBox(height: MediaQuery.of(context).size.height * 0.02),
-          const TitleCustom('เครื่องซักผ้า'),
           SizedBox(height: MediaQuery.of(context).size.height * 0.05),
           _buildStatus(context, free: '2', amount: '5'),
         ],
