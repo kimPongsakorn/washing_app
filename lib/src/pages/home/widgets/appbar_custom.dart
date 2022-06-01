@@ -1,8 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:washing_app/src/constants/asset.dart';
+import 'package:washing_app/src/constants/constant.dart';
+import 'package:washing_app/src/models/home_model.dart';
+import 'package:washing_app/src/utils/services/format_convert.dart';
 
 class AppBarCustom extends StatelessWidget {
-  const AppBarCustom({Key? key}) : super(key: key);
+  final List<HomeModel> _model;
+  const AppBarCustom(this._model, {Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -15,16 +19,39 @@ class AppBarCustom extends StatelessWidget {
               bottomLeft: Radius.circular(40.0),
               bottomRight: Radius.circular(40.0))),
       child: Column(
-        mainAxisAlignment: MainAxisAlignment.start,
-        crossAxisAlignment: CrossAxisAlignment.start,
+        mainAxisAlignment: MainAxisAlignment.center,
+        crossAxisAlignment: CrossAxisAlignment.center,
         children: [
           SizedBox(height: MediaQuery.of(context).size.height * 0.02),
           SizedBox(height: MediaQuery.of(context).size.height * 0.05),
-          _buildStatus(context, free: '2', amount: '5'),
+          _buildStatus(context,
+              free: _model.first.free, amount: _model.first.amount),
+          SizedBox(height: MediaQuery.of(context).size.height * 0.05),
+          _buildCoin(_model.first.coin ?? '0'),
         ],
       ),
     );
   }
+
+  Row _buildCoin(String? coin) => Row(
+        mainAxisSize: MainAxisSize.min,
+        children: [
+          Image.asset(
+            Asset.iconCoin,
+            height: 20,
+          ),
+          TextButton(
+            onPressed: () {},
+            child: Text(
+              FormatConvert().decimal(coin),
+              style: const TextStyle(
+                color: Constant.BG_WHITE_COLOR,
+                fontSize: 15,
+              ),
+            ),
+          ),
+        ],
+      );
 
   Center _buildStatus(BuildContext context, {String? free, String? amount}) =>
       Center(

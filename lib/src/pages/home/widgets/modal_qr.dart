@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:washing_app/src/constants/asset.dart';
 
-class ModalFit extends StatelessWidget {
-  const ModalFit({Key? key}) : super(key: key);
+class ModalQR extends StatelessWidget {
+  const ModalQR({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {

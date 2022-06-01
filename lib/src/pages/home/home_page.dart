@@ -1,11 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:modal_bottom_sheet/modal_bottom_sheet.dart';
-import 'package:washing_app/src/constants/asset.dart';
 import 'package:washing_app/src/constants/constant.dart';
-import 'package:washing_app/src/pages/home/view/washing_list.dart';
-import 'package:washing_app/src/pages/home/widgets/appbar_custom.dart';
+import 'package:washing_app/src/pages/home/view/body.dart';
+import 'package:washing_app/src/pages/home/widgets/modal_qr.dart';
 import 'package:washing_app/src/widgets/drawer.dart';
-import 'package:washing_app/src/widgets/modal_fit.dart';
 import 'package:washing_app/src/widgets/title_custom.dart';
 
 class HomePage extends StatelessWidget {
@@ -20,18 +18,10 @@ class HomePage extends StatelessWidget {
         elevation: 0,
         iconTheme: const IconThemeData(color: Constant.BG_WHITE_COLOR),
         centerTitle: false,
-        actions: [_buildCoin()],
+        actions: [],
       ),
       body: SafeArea(
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: const [
-            AppBarCustom(),
-            SizedBox(height: 10),
-            TitleCustom('เครื่องว่าง'),
-            Expanded(child: WashingList()),
-          ],
-        ),
+        child: Body(),
       ),
       floatingActionButtonLocation: FloatingActionButtonLocation.centerFloat,
       floatingActionButton: _buildFloatingActionButton(
@@ -42,26 +32,6 @@ class HomePage extends StatelessWidget {
     );
   }
 
-  Row _buildCoin() => Row(
-        mainAxisSize: MainAxisSize.min,
-        children: [
-          Image.asset(
-            Asset.iconCoin,
-            height: 20,
-          ),
-          TextButton(
-            onPressed: () {},
-            child: const Text(
-              '12.36',
-              style: TextStyle(
-                color: Constant.BG_WHITE_COLOR,
-                fontSize: 15,
-              ),
-            ),
-          ),
-        ],
-      );
-
   FloatingActionButton _buildFloatingActionButton(BuildContext context,
           {String? title, required IconData? iconData}) =>
       FloatingActionButton.extended(
@@ -69,7 +39,7 @@ class HomePage extends StatelessWidget {
           expand: false,
           context: context,
           backgroundColor: Colors.transparent,
-          builder: (context) => const ModalFit(),
+          builder: (context) => const ModalQR(),
         ),
         label: Text(
           title ?? '',

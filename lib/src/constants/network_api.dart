@@ -4,4 +4,5 @@ class NetworkAPI {
 
   static const String register = '/user/post.php';
   static const String login = '/user/login.php';
+  static const String home = '/washing/get.php';
 }

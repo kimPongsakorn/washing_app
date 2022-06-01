@@ -2,7 +2,9 @@ import 'dart:convert';
 
 import 'package:dio/dio.dart';
 import 'package:flutter/foundation.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 import 'package:washing_app/src/constants/network_api.dart';
+import 'package:washing_app/src/models/home_model.dart';
 import 'package:washing_app/src/models/register_model.dart';
 import 'package:washing_app/src/utils/services/login_response.dart';
 
@@ -78,5 +80,19 @@ class NetworkService {
       print(login.token);
     }
     return loginResponseFromJson(jsonEncode(response.data));
+  }
+
+  Future<List<HomeModel>> getHome() async {
+    SharedPreferences prefs = await SharedPreferences.getInstance();
+    String? value = prefs.getString('token');
+    int id = int.parse(value!);
+    FormData data = FormData.fromMap({
+      'id': id,
+    });
+    final response = await _dio.post(NetworkAPI.home, data: data);
+    if (response.statusCode == 200) {
+      return homeModelFromJson(jsonEncode(response.data));
+    }
+    throw Exception();
   }
 }
