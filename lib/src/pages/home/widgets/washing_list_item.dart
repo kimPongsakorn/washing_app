@@ -47,13 +47,7 @@ class WashingListItem extends StatelessWidget {
                 const SizedBox(
                   width: 5,
                 ),
-                Text(
-                  'ขนาด ${_model.size} kg',
-                  style: const TextStyle(
-                    color: Constant.BLACK_COLOR,
-                    fontSize: 15,
-                  ),
-                ),
+                _buildSize(),
               ],
             ),
           ),
@@ -62,6 +56,13 @@ class WashingListItem extends StatelessWidget {
     );
   }
 
+  Text _buildSize() => Text(
+        'ขนาด ${_model.size} kg',
+        style: const TextStyle(
+          color: Constant.BLACK_COLOR,
+          fontSize: 15,
+        ),
+      );
   Column _buildTitleAndStatus(String? title, {String? status, String? price}) =>
       Column(
         crossAxisAlignment: CrossAxisAlignment.start,
