@@ -8,8 +8,8 @@ import 'package:washing_app/src/pages/home/widgets/modal_washing.dart';
 
 class WashingListItem extends StatelessWidget {
   final Datum _model;
-
-  const WashingListItem(this._model, {Key? key}) : super(key: key);
+  final String? coin;
+  const WashingListItem(this._model, {this.coin, Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -18,7 +18,7 @@ class WashingListItem extends StatelessWidget {
         expand: false,
         context: context,
         backgroundColor: Colors.transparent,
-        builder: (context) => ModalWashing(_model),
+        builder: (context) => ModalWashing(_model, coin: coin),
       ),
       child: Container(
         padding: const EdgeInsets.symmetric(horizontal: 10.0, vertical: 2.0),
@@ -39,7 +39,11 @@ class WashingListItem extends StatelessWidget {
                   height: 60,
                 ),
                 const SizedBox(width: 5),
-                _buildTitleAndStatus(_model.number, status: _model.status),
+                _buildTitleAndStatus(
+                  _model.number,
+                  status: _model.status,
+                  price: _model.price,
+                ),
                 const SizedBox(
                   width: 5,
                 ),
@@ -58,7 +62,8 @@ class WashingListItem extends StatelessWidget {
     );
   }
 
-  Column _buildTitleAndStatus(String? title, {String? status}) => Column(
+  Column _buildTitleAndStatus(String? title, {String? status, String? price}) =>
+      Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           Text(
@@ -72,17 +77,17 @@ class WashingListItem extends StatelessWidget {
           const SizedBox(
             height: 2,
           ),
-          _buildBadge(status),
+          _buildBadge(status, price: price),
         ],
       );
 
-  Badge _buildBadge(String? notification) {
+  Badge _buildBadge(String? notification, {String? price}) {
     return Badge(
       toAnimate: false,
       shape: BadgeShape.square,
       borderRadius: BorderRadius.circular(8),
       badgeContent: Text(
-        notification == '0' ? 'ว่าง' : 'จองแล้ว',
+        notification == '0' ? 'ว่าง ราคา $price บาท' : 'จองแล้ว',
         style: const TextStyle(
           color: Constant.BG_WHITE_COLOR,
           fontSize: 14,

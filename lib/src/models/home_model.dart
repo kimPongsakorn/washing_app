@@ -45,6 +45,7 @@ class Datum {
     this.size,
     this.idUser,
     this.status,
+    this.price,
   });
 
   String? id;
@@ -52,6 +53,7 @@ class Datum {
   String? size;
   String? idUser;
   String? status;
+  String? price;
 
   factory Datum.fromJson(Map<String, dynamic> json) => Datum(
         id: json["id"],
@@ -59,6 +61,7 @@ class Datum {
         size: json["size"],
         idUser: json["id_user"] == null ? null : json["id_user"],
         status: json["status"],
+        price: json["price"],
       );
 
   Map<String, dynamic> toJson() => {
@@ -67,5 +70,6 @@ class Datum {
         "size": size,
         "id_user": idUser == null ? null : idUser,
         "status": status,
+        "price": price,
       };
 }

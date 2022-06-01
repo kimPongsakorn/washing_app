@@ -38,7 +38,11 @@ class _BodyState extends State<Body> {
                 AppBarCustom(homeData),
                 const SizedBox(height: 10),
                 const TitleCustom('เครื่องว่าง'),
-                Expanded(child: WashingList(homeData.first.data)),
+                Expanded(
+                    child: WashingList(
+                  homeData.first.data,
+                  coin: homeData.first.coin,
+                )),
               ],
             ),
           );

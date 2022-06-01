@@ -3,11 +3,19 @@ import 'package:shared_preferences/shared_preferences.dart';
 import 'package:washing_app/src/constants/asset.dart';
 import 'package:washing_app/src/constants/constant.dart';
 import 'package:washing_app/src/models/home_model.dart';
+import 'package:washing_app/src/utils/services/network_service.dart';
+import 'package:washing_app/src/widgets/custom_flushbar.dart';
 
-class ModalWashing extends StatelessWidget {
+class ModalWashing extends StatefulWidget {
   final Datum _model;
-  const ModalWashing(this._model, {Key? key}) : super(key: key);
+  final String? coin;
+  const ModalWashing(this._model, {this.coin, Key? key}) : super(key: key);
 
+  @override
+  State<ModalWashing> createState() => _ModalWashingState();
+}
+
+class _ModalWashingState extends State<ModalWashing> {
   @override
   Widget build(BuildContext context) {
     return Material(
@@ -18,16 +26,16 @@ class ModalWashing extends StatelessWidget {
         children: <Widget>[
           _buildBtnColse(context),
           const SizedBox(height: 50),
-          _buildTitle(_model.number),
+          _buildTitle(widget._model.number),
           const SizedBox(height: 50),
-          _buildStatus(_model.idUser),
+          _buildStatus(widget._model.idUser),
           const SizedBox(height: 80),
         ],
       ),
     ));
   }
 
-  FutureBuilder _buildStatus(String? id) => FutureBuilder(
+  FutureBuilder _buildStatus(String? id) => FutureBuilder<String>(
         future: _check(id ?? '0'),
         builder: (context, snapshot) {
           if (snapshot.hasError) {
@@ -41,14 +49,22 @@ class ModalWashing extends StatelessWidget {
           final data = snapshot.data;
 
           if (data == '0') {
-            if (_model.status != '0') {
+            if (widget._model.status != '0') {
               return _buildMessage(
                   'เครื่องนี้มีคนจองแล้ว \nลองหาเครื่องใหม่ดูนะ');
             }
-            return _buildBtn('จองเครื่องซัก', status: _model.status);
+            return _buildBtn(
+              'จองเครื่องซัก',
+              status: widget._model.status,
+              onPressed: () => payment(),
+            );
           }
 
-          return _buildBtn('ยกเลิกการจอง', status: _model.status);
+          return _buildBtn(
+            'ยกเลิกการจอง',
+            status: widget._model.status,
+            onPressed: () => cancel(),
+          );
         },
       );
 
@@ -58,7 +74,9 @@ class ModalWashing extends StatelessWidget {
             Asset.oopImage,
             height: 150,
           ),
-          SizedBox(height: 10,),
+          const SizedBox(
+            height: 10,
+          ),
           const Text('เครื่องนี้มีคนจองแล้ว \nลองหาเครื่องใหม่ดูนะ')
         ],
       );
@@ -73,7 +91,8 @@ class ModalWashing extends StatelessWidget {
     return '0';
   }
 
-  Container _buildBtn(String? title, {String? status}) => Container(
+  Container _buildBtn(String? title, {String? status, Function()? onPressed}) =>
+      Container(
         width: 220,
         color: status != '0' ? Colors.amber : Colors.green,
         child: TextButton(
@@ -81,8 +100,13 @@ class ModalWashing extends StatelessWidget {
             primary: Colors.white,
             backgroundColor: Colors.transparent,
           ),
-          onPressed: () {},
-          child: Text(title ?? ''),
+          onPressed: onPressed,
+          child: Text(
+            title ?? '',
+            style: const TextStyle(
+              color: Colors.white,
+            ),
+          ),
         ),
       );
 
@@ -113,4 +137,48 @@ class ModalWashing extends StatelessWidget {
           icon: const Icon(Icons.close_rounded),
         ),
       );
+
+  void payment() {
+    NetworkService()
+        .payment('${widget._model.price}', '${widget._model.id}')
+        .then((data) async {
+      await Future.delayed(const Duration(seconds: 1));
+      if (data.status == 'ok') {
+        if (!mounted) return;
+        Navigator.pop(context);
+        CustomFlushbar.showSuccess(context, message: data.message ?? '');
+        NetworkService().setNotifyLine(
+            'มีคนจองเครื่องซัก หมายเลข${widget._model.number} แล้วน้า');
+        setState(() {});
+        return;
+      } else if (data.status == 'error') {
+        if (!mounted) return;
+        CustomFlushbar.showError(context, message: data.message ?? '');
+        return;
+      }
+    }).catchError((onError) async {
+      await Future.delayed(const Duration(seconds: 1));
+      if (!mounted) return;
+      CustomFlushbar.showError(context, message: 'error');
+    });
+  }
+
+  void cancel() {
+    NetworkService()
+        .cancel('${widget._model.price}', '${widget._model.id}')
+        .then((data) async {
+      await Future.delayed(const Duration(seconds: 1));
+      if (!mounted) return;
+      Navigator.pop(context);
+      NetworkService().setNotifyLine(
+          'เครื่องซักหมายเลข ${widget._model.number} ถูกยกเลิกแล้วน้า มีใครอยากจองมั้ย');
+      CustomFlushbar.showSuccess(context, message: data.message ?? '');
+      setState(() {});
+      return;
+    }).catchError((onError) async {
+      await Future.delayed(const Duration(seconds: 1));
+      if (!mounted) return;
+      CustomFlushbar.showError(context, message: 'error');
+    });
+  }
 }

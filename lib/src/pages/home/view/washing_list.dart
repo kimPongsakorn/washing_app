@@ -4,7 +4,8 @@ import 'package:washing_app/src/pages/home/widgets/washing_list_item.dart';
 
 class WashingList extends StatelessWidget {
   final List<Datum>? _model;
-  const WashingList(this._model, {Key? key}) : super(key: key);
+  final String? coin;
+  const WashingList(this._model, {this.coin, Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -12,7 +13,10 @@ class WashingList extends StatelessWidget {
       padding: const EdgeInsets.only(bottom: 100),
       itemBuilder: (context, index) {
         final model = _model![index];
-        return WashingListItem(model);
+        return WashingListItem(
+          model,
+          coin: coin,
+        );
       },
       itemCount: _model?.length,
     );
