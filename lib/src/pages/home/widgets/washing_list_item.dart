@@ -18,7 +18,7 @@ class WashingListItem extends StatelessWidget {
         expand: false,
         context: context,
         backgroundColor: Colors.transparent,
-        builder: (context) => const ModalWashing(),
+        builder: (context) => ModalWashing(_model),
       ),
       child: Container(
         padding: const EdgeInsets.symmetric(horizontal: 10.0, vertical: 2.0),
@@ -58,7 +58,7 @@ class WashingListItem extends StatelessWidget {
     );
   }
 
-  _buildTitleAndStatus(String? title, {String? status}) => Column(
+  Column _buildTitleAndStatus(String? title, {String? status}) => Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           Text(
@@ -76,7 +76,7 @@ class WashingListItem extends StatelessWidget {
         ],
       );
 
-  _buildBadge(String? notification) {
+  Badge _buildBadge(String? notification) {
     return Badge(
       toAnimate: false,
       shape: BadgeShape.square,

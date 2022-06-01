@@ -20,7 +20,7 @@ class HomePage extends StatelessWidget {
         centerTitle: false,
         actions: [],
       ),
-      body: SafeArea(
+      body: const SafeArea(
         child: Body(),
       ),
       floatingActionButtonLocation: FloatingActionButtonLocation.centerFloat,
