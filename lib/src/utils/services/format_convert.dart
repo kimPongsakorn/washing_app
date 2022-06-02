@@ -6,7 +6,7 @@ class FormatConvert {
   factory FormatConvert() => _instance;
 
   String numberComma(dynamic value) {
-    return NumberFormat("#,###").format(value);
+    return NumberFormat("#,###").format(double.parse(value));
   }
 
   String decimal(dynamic value) {

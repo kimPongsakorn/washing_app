@@ -49,7 +49,7 @@ class MonetViewModel {
       false,
     ),
     Money(
-      '1,000',
+      '1000',
       false,
     ),
   ];
