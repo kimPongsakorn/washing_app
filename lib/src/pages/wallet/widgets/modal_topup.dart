@@ -48,9 +48,7 @@ class _ModalTopUpState extends State<ModalTopUp> {
   }
 
   Future<void> _incrementCounter(List<Money> data, {int? index}) async {
-    setState(() {
-      data[index].isSelected = true;
-    });
+    setState(() {});
   }
 
   Align _buildBtnColse(BuildContext context) => Align(
