@@ -187,4 +187,21 @@ class NetworkService {
     }
     throw Exception();
   }
+
+  Future<MessageModel> topUp(String? prices) async {
+    SharedPreferences prefs = await SharedPreferences.getInstance();
+    String? value = prefs.getString('token');
+    int id = int.parse(value!);
+
+    FormData data = FormData.fromMap({
+      'prices': prices,
+      'id_user': id,
+    });
+
+    final response = await _dio.post(NetworkAPI.topUp, data: data);
+    if (response.statusCode == 200) {
+      return messageModelFromJson(jsonEncode(response.data));
+    }
+    throw Exception();
+  }
 }
