@@ -8,8 +8,8 @@ import 'package:washing_app/src/widgets/custom_flushbar.dart';
 
 class ModalWashing extends StatefulWidget {
   final Datum _model;
-  final String? coin;
-  const ModalWashing(this._model, {this.coin, Key? key}) : super(key: key);
+
+  const ModalWashing(this._model, {Key? key}) : super(key: key);
 
   @override
   State<ModalWashing> createState() => _ModalWashingState();

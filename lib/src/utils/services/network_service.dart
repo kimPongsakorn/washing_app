@@ -4,6 +4,7 @@ import 'package:dio/dio.dart';
 import 'package:flutter/foundation.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:washing_app/src/constants/network_api.dart';
+import 'package:washing_app/src/models/coin_model.dart';
 import 'package:washing_app/src/models/home_model.dart';
 import 'package:washing_app/src/models/message_model.dart';
 import 'package:washing_app/src/models/register_model.dart';
@@ -159,12 +160,30 @@ class NetworkService {
     SharedPreferences prefs = await SharedPreferences.getInstance();
     String? value = prefs.getString('token');
     int id = int.parse(value!);
+
     FormData data = FormData.fromMap({
       'id': id,
     });
+
     final response = await _dio.post(NetworkAPI.home, data: data);
     if (response.statusCode == 200) {
       return homeModelFromJson(jsonEncode(response.data));
+    }
+    throw Exception();
+  }
+
+  Future<List<CoinModel>> getWallet() async {
+    SharedPreferences prefs = await SharedPreferences.getInstance();
+    String? value = prefs.getString('token');
+    int id = int.parse(value!);
+
+    FormData data = FormData.fromMap({
+      'id': id,
+    });
+
+    final response = await _dio.post(NetworkAPI.getCoin, data: data);
+    if (response.statusCode == 200) {
+      return coinModelFromJson(jsonEncode(response.data));
     }
     throw Exception();
   }

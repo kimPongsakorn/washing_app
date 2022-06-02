@@ -1,7 +1,9 @@
 import 'package:flutter/material.dart';
+import 'package:washing_app/src/utils/services/format_convert.dart';
 
 class Header extends StatelessWidget {
-  const Header({Key? key}) : super(key: key);
+  String? coin;
+  Header(this.coin, {Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -26,7 +28,7 @@ class Header extends StatelessWidget {
           ),
           _buildText(
             context,
-            title: '0.00',
+            title: FormatConvert().decimal(coin),
             style: Theme.of(context)
                 .textTheme
                 .headline6

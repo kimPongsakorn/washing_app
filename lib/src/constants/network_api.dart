@@ -7,6 +7,7 @@ class NetworkAPI {
   static const String home = '/washing/get.php';
   static const String payment = '/washing/payment.php';
   static const String cancel = '/washing/cancel.php';
+  static const String getCoin = '/coin/get_coin.php';
 
   static const String baseLineURL = 'https://notify-api.line.me/api';
   static const String notify = '/notify';

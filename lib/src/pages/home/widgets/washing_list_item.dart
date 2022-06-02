@@ -18,7 +18,7 @@ class WashingListItem extends StatelessWidget {
         expand: false,
         context: context,
         backgroundColor: Colors.transparent,
-        builder: (context) => ModalWashing(_model, coin: coin),
+        builder: (context) => ModalWashing(_model),
       ),
       child: Container(
         padding: const EdgeInsets.symmetric(horizontal: 10.0, vertical: 2.0),
@@ -63,6 +63,7 @@ class WashingListItem extends StatelessWidget {
           fontSize: 15,
         ),
       );
+
   Column _buildTitleAndStatus(String? title, {String? status, String? price}) =>
       Column(
         crossAxisAlignment: CrossAxisAlignment.start,
